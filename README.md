@@ -20,7 +20,7 @@ Tired of navigating endless folders? py-shortcut is a powerful tool that lets yo
 1.  **Download and run** the py-shortcut application.
 2.  To add a shortcut, use the command `:add_key`. 
 3.  Enter your desired **key** (e.g., `wf`)
-4.  Enter the **file/folder path**, using double forward slashes (`//`) instead of backslashes (`\`).
+4.  Enter the **file/folder path**, using double forward slashes (`//`) instead of backslashes (`\`). (you can skip this, now it supports both backsals and forward slash)
 5.  Use the `help` command to view all available commands.
 
 **Example:**
