@@ -2,6 +2,20 @@ import os
 import json
 from TurnDictLower import turn_lower        # type: ignore # import turn_lower function
 
+'''info = {
+    "name": "py-shortcut", 
+    "author": "Abhay Siddhartha",  
+    "description": "Hi this is a tools like windows run command but, in this tool you create your own shorcuts.
+    for example 'imagine you a work folder that open often, to open your work folder you locate it windows
+    explorer every time' but here you can put file path of your 'work folder' and assign a key to it like "wf.
+    now every time you open this tool and type 'wf' and 'press enter'. it will open you work folder directly.
+    its much faster this way specially if you are a creator and you deal with multiple project/assets folder and files.
+    to add your file/filder to the py-shortcut tool just use the :add_key command then type in the key then your
+    file/folder path (use double forward slashes '//' instead of one backslash '' in the file path because python
+    work with forward slashes). use help command to show all the useful commands.
+    this tool store all the keys and path in a json file, if now json file present file the directory it will automatically
+    create one for you. just the tools in a folder and put a shortcut of the main file to hte desktop.",
+    }'''
 
 # #  ____________ global variables and variables
 global files, is_path_dict_empty, empty_dict_warnning
@@ -121,6 +135,10 @@ def check_path_dict_empty():
         return is_path_dict_empty
     pass
     
+def convert_slashes(path_string):
+    """Convert all backslashes in a string to forward slashes."""
+    return path_string.replace('\\', '//')    
+
 def rm_key(key):
     global files
     if key in files.keys():
@@ -166,9 +184,16 @@ while True:
         
         
     elif querry == ":add_key":
+        new_item = {}
+        new_key = ""
+        new_path = ""
+        
+        new_key = input("Enter the new key\n example - 'work_folder'\n: ")
+        input_path = input("Enter the value for your new key\n example - 'c://Users//Work Folder' \n: ")
+        new_path = convert_slashes(input_path)
 
-        new_key = {str(input("Enter the new key\n example - 'work_folder'\n: ")):str(input("Enter the value for your new key\n example - 'c://Users//Work Folder' \n: "))}
-        files.update(new_key)
+        new_item = {str(new_key):str(new_path)}
+        files.update(new_item)
         
         with open(os.path.join(os.path.dirname(__file__), "•Dictionary•.json"), 'w') as f:
             json.dump(files, f, indent = 4, sort_keys = True)
