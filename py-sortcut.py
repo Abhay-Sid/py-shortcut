@@ -29,6 +29,16 @@ empty_dict_warnning = '''
 |    Try adding some new keys to the Dictionary using ':add_key' command,
 |    or Try 'help' Command.
 '''
+reserved_keys = [":add_key",
+                ":all_keys", 
+                ":clear", 
+                ":keys", 
+                ":quit", 
+                ":rm_key", 
+                ":sort:", 
+                ":values",
+                "help"
+                ]
 
 # _______________________________ importing the json dictionay which contains all the paths as a dictionary called "files"
 def imp_json():
@@ -141,6 +151,7 @@ def convert_slashes(path_string):
 
 def rm_key(key):
     global files
+    key = key.lower()
     if key in files.keys():
         files.pop(key)
         print("Key Removed!")
@@ -188,7 +199,22 @@ while True:
         new_key = ""
         new_path = ""
         
-        new_key = input("Enter the new key\n example - 'work_folder'\n: ")
+        while True:
+            new_key = input("Enter the new key\n example - 'work_folder'\n: ")
+            new_key = new_key.lower()
+            
+            if new_key == ":quit":
+                exit()
+            
+            elif new_key in files.keys():   
+                print("The key you entered is already exist!")
+                
+            elif new_key in reserved_keys:
+                print("The key you entered is a 'Reserved Key'!")
+                
+            else:
+                break
+            
         input_path = input("Enter the value for your new key\n example - 'c://Users//Work Folder' \n: ")
         new_path = convert_slashes(input_path)
 
